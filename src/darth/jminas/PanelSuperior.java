@@ -39,19 +39,19 @@ public class PanelSuperior extends JPanel {
         pMinas.setLayout(new BorderLayout());
 
         lblTime = new JLabel("00:00", JLabel.CENTER);
-        lblTime.setBackground(Color.black);
-        lblTime.setForeground(Color.green);
-        lblTime.setFont(new Font("Serif", Font.BOLD, 16));
+        lblTime.setBackground(new Color(55,71,79));
+        lblTime.setForeground(new Color(3,155,229));
+        lblTime.setFont(new Font("Verdana", Font.BOLD, 14));
         pCronometro.add(lblTime, BorderLayout.CENTER);
 
         lblMinas = new JLabel("00", JLabel.CENTER);
-        lblMinas.setBackground(Color.black);
-        lblMinas.setForeground(Color.green);
-        lblMinas.setFont(new Font("Serif", Font.BOLD, 16));
+        lblMinas.setBackground(new Color(55,71,79));
+        lblMinas.setForeground(new Color(3,155,229));
+        lblMinas.setFont(new Font("Verdana", Font.BOLD, 14));
         pMinas.add(lblMinas, BorderLayout.CENTER);
 
         lblStart = new JLabel("", JLabel.CENTER);
-        lblStart.setBorder(BorderFactory.createRaisedBevelBorder());
+        //lblStart.setBorder(BorderFactory.createRaisedBevelBorder());
         lblStart.addMouseListener(new MouseListener() {
             public void mouseReleased(MouseEvent e) {
                 lblStart.setBorder(BorderFactory.createRaisedBevelBorder());

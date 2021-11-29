@@ -83,7 +83,7 @@ public class PanelCentral extends JPanel implements MouseListener, MouseMotionLi
 	
 	public void paint(Graphics aux) {
 		g = (Graphics2D) aux;
-		g.setFont(new Font("Serif", Font.BOLD, 18));
+		g.setFont(new Font("Trebuchet MS", Font.BOLD, 18));
 		FontMetrics fm=g.getFontMetrics();
 		int numCerc;
 		String strNum;
