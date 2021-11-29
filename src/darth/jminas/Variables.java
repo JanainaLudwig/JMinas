@@ -77,8 +77,8 @@ public class Variables {
 
     public static Color getColorCantidad(int op) {
         switch(op) {
-            case 1: return color1; case 2: return color2; case 3: return color3; case 4: return color4;
-            case 5: return color5; case 6: return color6; case 7: return color7; case 8: return color8;
+            case 1: return new Color(48,63,159); case 2: return new Color(56,142,60); case 3: return new Color(211,47,47); case 4: return new Color(170,0,255);
+            case 5: return new Color(249,168,37); case 6: return new Color(0,172,193); case 7: return new Color(255,111,0); case 8: return new Color(38,50,56);
             default: return Color.black;
         }
     }

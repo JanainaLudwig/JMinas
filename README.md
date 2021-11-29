@@ -15,3 +15,7 @@ Como rodar:
 É possível trocar o nível do jogo nas opções > nivel. 
 
 Para jogar, é preciso clicar em algum campo. Caso acerte em uma bomba o jogo é finalizado.
+
+
+# Outros
+Créditos dos ícones: https://freeicons.io/
