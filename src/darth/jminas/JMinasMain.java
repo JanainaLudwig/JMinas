@@ -20,6 +20,7 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
+import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -57,6 +58,8 @@ public class JMinasMain extends JFrame implements ActionListener {
         initComponents();
         addComponents();
         addKeyListener(pc);
+        
+        setIconImage(new ImageIcon(getClass().getResource(Variables.pathIcoMinas)).getImage());
         
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         try {
