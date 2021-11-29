@@ -10,6 +10,7 @@ Como rodar:
 - Importe o projeto no Eclipse
 - Rode o projeto a partir da classe darth.jminas.JMinasMain
 
+Caso ocorra algum erro ao iniciar o projeto, vá em project > clean e confirme.
 
 ## Utilização
 É possível trocar o nível do jogo nas opções > nivel. 
