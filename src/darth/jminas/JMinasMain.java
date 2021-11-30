@@ -35,8 +35,8 @@ public class JMinasMain extends JFrame implements ActionListener {
     public static boolean flagErrorImagenes = false;
     
     private JMenuBar mb;
-    private JMenu mOpciones, mMas, mNivel;
-    private JMenuItem moNuevo,moSalir,moEstadisticas,mAcerca,smn0,smn1,smn2,smn3;
+    private JMenu mOpciones, mMas, mNivel, mAjuda;
+    private JMenuItem moNuevo,moSalir,moEstadisticas,mAcerca,smn0,smn1,smn2,smn3, mRegras;
     
     static PanelSuperior ps;
     static PanelCentral pc;
@@ -158,6 +158,12 @@ public class JMinasMain extends JFrame implements ActionListener {
         mAcerca = new JMenuItem("Acerca de");
         mAcerca.addActionListener(this);
         mMas.add(mAcerca);
+        
+        mAjuda = new JMenu("Ayuda");
+        mb.add(mAjuda);
+        mRegras = new JMenuItem("Operación");
+        mRegras.addActionListener(this);
+        mAjuda.add(mRegras);
     }
     
     public static void StartGame() {
@@ -224,6 +230,12 @@ public class JMinasMain extends JFrame implements ActionListener {
             setSize(842, 548);
             setLocationRelativeTo(null);
             RestartGame();
+        }else if(e.getSource()==mRegras) {
+        	try {
+                Ajuda();
+            } catch (InterruptedException e1) {
+                e1.printStackTrace();
+            }
         }else if(e.getSource()==mAcerca)
             try {
                 Acerca();
@@ -282,6 +294,59 @@ public class JMinasMain extends JFrame implements ActionListener {
             g.setPaint(Color.WHITE);
             g.drawString("Darth Leonard", 200, 90);
             g.drawString("leolinuxmx@gmail.com", 185, 110);
+        }
+    }
+    
+    private void Ajuda() throws InterruptedException {
+        final JFrame frame = new JFrame("Frame test");
+        frame.setUndecorated(true);
+        frame.setBackground(new Color(0,0,0,0));
+        frame.setContentPane(new ComponentAjuda());
+        frame.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                frame.dispose();
+            }
+        });
+        frame.pack();
+        frame.setSize(700, 200);
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
+        Thread t = new Thread(){
+            public void run() {
+                try {
+                    Thread.sleep(30000);
+                    frame.dispose();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+        t.start();
+    }
+    
+    private static class ComponentAjuda extends JComponent {
+        private static final long serialVersionUID = 8668944310336850671L;
+        public void paintComponent(Graphics graphics) {
+            Graphics2D g = (Graphics2D) graphics;
+            Color[] colors = new Color[]{
+                new Color(0,0,0,0),
+                new Color(0.3f,0.3f,0.3f,1f),
+                new Color(0.3f,0.3f,0.3f,1f),
+                new Color(0,0,0,0)};
+            g.fillRect(0, 0, 650, 200);
+            g.setPaint(Color.WHITE);
+            g.drawString("-El objetivo \n"
+            		+ "del Campo Minado es revelar los cuadrados vacíos y con números, evitando a los que \n"
+            		+ "esconde bombas." + "\n", 20, 30);
+            g.drawString("-El número que aparece en el cuadrado indica el número total de bombas en el\n"
+            		+ "cuadrados que lo rodean" + "\n", 20, 60);
+            g.drawString("-A medida que revele los cuadrados, la pantalla presentará el resultado de su \n"
+            		+ "elección" + "\n", 20, 90);
+            g.drawString("-Has hecho clic en un espacio en blanco: todos los espacios en blanco a tu alrededor son \n"
+            		+ "revelado automáticamente" + "\n", 20, 120);
+            g.drawString("-Has hecho clic en un número: el número se revela" + "\n", 20, 150);
+            g.drawString("-Has hecho clic en una bomba: se revelan todas las posiciones y pierdes el juego" + "\n", 20, 180);
+            g.drawString("-Ganas el juego cuando revelas todas las posiciones que no son bombas." + "\n", 20, 210);
         }
     }
     
