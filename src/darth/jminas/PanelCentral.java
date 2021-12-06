@@ -113,8 +113,11 @@ public class PanelCentral extends JPanel implements MouseListener, MouseMotionLi
 						else
 							g.setPaint(new GradientPaint(11, 10, new Color(230,100,110), 25, 25, new Color(230,100,110), true));
 						g.fillRect(i*dx+1, j*dy+1, dx-1, dy-1);
-						if(imgExplosion != null)
-							g.drawImage(imgExplosion, i*dx+(dx/4), j*dy+(dy/4), dx-(dx/2), dy-(dy/2), this);
+						if(imgExplosion != null) {
+							int max = dx > dy ? dy : dx;
+							int size = max-(max/2);
+							g.drawImage(imgExplosion, i*dx+((dx/2)-(size/2)), j*dy+((dy/2)-(size/2)), size, size, this);
+						}
 					}else {
 						g.setPaint(new GradientPaint(11, 10, new Color(247,247,247), 25, 25, new Color(235,235,235), true));
 						g.fillRect(i*dx+1, j*dy+1, dx-1, dy-1);
