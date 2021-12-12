@@ -33,5 +33,14 @@ class VariablesTest {
 		Assert.assertEquals(3, Variables.getNivel());
 		Assert.assertEquals(99, Variables.numeroMinas);
 	}
+	
+	@Test
+	void testGetColor() {
+		Assert.assertNotNull(Variables.getColorCantidad(0));
+		Assert.assertNotNull(Variables.getColorCantidad(1));
+		Assert.assertNotNull(Variables.getColorCantidad(8));
+		Assert.assertNotNull(Variables.getColorCantidad(9));
+		Assert.assertNotNull(Variables.getColorCantidad(99));
+	}
 
 }
