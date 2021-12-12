@@ -173,14 +173,11 @@ public class PanelCentral extends JPanel implements MouseListener, MouseMotionLi
 	}
 	
 	public void abrir(int x, int y, int op) {
-		System.out.println(x);
-		System.out.println(y);
-		System.out.println(op);
-		System.out.println(mapa.toString());
 		if(x < 0 || x >= Variables.ancho || y < 0 || y >= Variables.alto)
 			return;
-		if(JMinasMain.Ganador || JMinasMain.Perdedor)
+		if(JMinasMain.Ganador || JMinasMain.Perdedor) {
 			return;
+		}
 		if(!JMinasMain.isPlaying()){
 			JMinasMain.StartGame();
 			
@@ -197,7 +194,6 @@ public class PanelCentral extends JPanel implements MouseListener, MouseMotionLi
 		case 0:
 			if(!mapa.Marcada(x, y)) {
 				if(!mapa.Abrir(x,y)) {
-					System.out.println("LostGame");
 					JMinasMain.LostGame();
 					mapa.AbrirMina(x, y);
 				}

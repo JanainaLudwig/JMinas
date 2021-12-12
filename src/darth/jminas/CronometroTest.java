@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 
-class TestCronometro {
+class CronometroTest {
 
 	@Test
 	void testCronometroNaoAtivo() {
