@@ -6,7 +6,7 @@ import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 
 
-class TestPanelCentral {
+class PanelCentralTest {
 
 	@Test
 	void testCanChangeNivel() {
@@ -21,9 +21,15 @@ class TestPanelCentral {
 			public boolean TieneMina(int x, int y) {
 				return true;
 			}
+			public boolean Abrir(int x, int y) {
+				return false;
+			}
 		}
+		JMinasMain main = new JMinasMain();
+		JMinasMain.Ganador = false;
+		JMinasMain.Perdedor = false;
 		
-		PanelCentral p = new PanelCentral(new JMinasMain());
+		PanelCentral p = new PanelCentral(main);
 		p.setMapa(new MapaMockComMina());
 		
 		JMinasMain.StartGame();
@@ -39,7 +45,6 @@ class TestPanelCentral {
 			public boolean TieneMina(int x, int y) {
 				return false;
 			}
-			
 		
 			public int getCeldasAbiertas() {
 				return (Variables.ancho*Variables.alto - Variables.numeroMinas);
