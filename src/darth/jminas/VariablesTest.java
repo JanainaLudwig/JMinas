@@ -8,11 +8,30 @@ import org.junit.jupiter.api.Test;
 class VariablesTest {
 
 	@Test
-	void checkAllImagesExist() {
+	void testAllImagesExist() {
 		for (String img : Variables.archivos) {
 			Assert.assertNotNull(getClass().getResource("/darth/img/" + img));
 			
 		}
+	}
+	
+	@Test
+	void testSetNivel() {
+		Variables.setNivel(0);
+		Assert.assertEquals(0, Variables.getNivel());
+		Assert.assertEquals(9, Variables.numeroMinas);
+
+		Variables.setNivel(1);
+		Assert.assertEquals(1, Variables.getNivel());
+		Assert.assertEquals(18, Variables.numeroMinas);
+
+		Variables.setNivel(2);
+		Assert.assertEquals(2, Variables.getNivel());
+		Assert.assertEquals(40, Variables.numeroMinas);
+
+		Variables.setNivel(3);
+		Assert.assertEquals(3, Variables.getNivel());
+		Assert.assertEquals(99, Variables.numeroMinas);
 	}
 
 }
