@@ -58,6 +58,6 @@ class PanelCentralTest {
 		
 		p.abrir(0, 0, 0);
 		
-		//Assert.assertTrue(JMinasMain.Ganador);
+		Assert.assertTrue(JMinasMain.Ganador);
 	}
 }
