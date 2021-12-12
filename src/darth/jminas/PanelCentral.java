@@ -316,4 +316,8 @@ public class PanelCentral extends JPanel implements MouseListener, MouseMotionLi
 		if(JMinasMain.Ganador)
 			PanelSuperior.UpdateIconStart(iconWiner,Variables.txtWinner);
 	}
+	
+	public int getContMinasMarcadas() {
+		return this.contMinasMarcadas;
+	}
 }
