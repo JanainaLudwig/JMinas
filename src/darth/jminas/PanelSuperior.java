@@ -19,7 +19,7 @@ import javax.swing.JPanel;
 public class PanelSuperior extends JPanel {
     private static final long serialVersionUID = 2473191468363778297L;
 
-    private static JLabel lblTime, lblMinas, lblStart;
+    public static JLabel lblTime, lblMinas, lblStart;
     private JPanel pCronometro, pMinas;
     private static Color countersTextColor = new Color(3,155,229);
 

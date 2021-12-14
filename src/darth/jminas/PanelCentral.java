@@ -71,6 +71,10 @@ public class PanelCentral extends JPanel implements MouseListener, MouseMotionLi
 		
 		
 	}
+	
+	public void setMapa(Mapa mapa) {
+		this.mapa = mapa;
+	}
 
 	public void restart() {
 		mapa = new Mapa();
@@ -106,32 +110,43 @@ public class PanelCentral extends JPanel implements MouseListener, MouseMotionLi
 				//	g.setColor(Color.red);
 				g.fillRect(i*dx+1, j*dy+1, dx-1, dy-1);
 				
-				if(mapa.Abierta(i, j)) {
-					if(mapa.TieneMina(i, j)) {
-						if(mapa.Marcada(i, j))
-							g.setPaint(new GradientPaint(11, 10, new Color(230,100,110), 25, 25, new Color(230,100,110), true));
-						else
-							g.setPaint(new GradientPaint(11, 10, new Color(230,100,110), 25, 25, new Color(230,100,110), true));
-						g.fillRect(i*dx+1, j*dy+1, dx-1, dy-1);
-						if(imgExplosion != null)
-							g.drawImage(imgExplosion, i*dx+(dx/4), j*dy+(dy/4), dx-(dx/2), dy-(dy/2), this);
-					}else {
-						g.setPaint(new GradientPaint(11, 10, new Color(247,247,247), 25, 25, new Color(235,235,235), true));
-						g.fillRect(i*dx+1, j*dy+1, dx-1, dy-1);
+
+				if (mapa.Marcada(i, j)) {
+					if (imgBandera != null) {
+						g.drawImage(imgBandera, i*dx+imgDx, j*dy+imgDy, dx-(dx/3), dy-(dy/3), this);
+					} else {
+						g.setPaint(new GradientPaint(11, 10, new Color(230,100,110), 25, 25, new Color(230,100,110), true));
+						g.fillRect(i*dx, j*dy, dx, dy);
 					}
+				}
+				
+				if (mapa.Abierta(i, j)) {
+					if (mapa.TieneMina(i, j)) {
+						g.setPaint(new GradientPaint(11, 10, new Color(230,100,110), 25, 25, new Color(230,100,110), true));
+						g.fillRect(i*dx+1, j*dy+1, dx-1, dy-1);
+
+
+						int max = dx > dy ? dy : dx;
+						int size = max-(max/2);
+						
+						int initialX = i*dx;
+						int initialY = j*dy;
+						
+						int imageXPosition = initialX + ((dx/2) - (size/2));
+						int imageYPosition = initialY + ((dy/2) - (size/2));
+						
+						g.drawImage(imgExplosion, imageXPosition, imageYPosition, size, size, this);
+						continue;
+					}
+				
+					g.setPaint(new GradientPaint(11, 10, new Color(247,247,247), 25, 25, new Color(235,235,235), true));
+					g.fillRect(i*dx+1, j*dy+1, dx-1, dy-1);
 					
 					numCerc = mapa.getCercanas(i, j);
-					if(numCerc != 0 && !mapa.TieneMina(i, j)){
+					if (numCerc != 0){
 						strNum = "" + numCerc;
 						g.setColor(Variables.getColorCantidad(mapa.getCercanas(i, j)));
 						g.drawString(strNum, i*dx+dx/2-fm.stringWidth(strNum)/3, j*dy+dy/2+fm.getHeight()/3);
-					}
-				}else if(mapa.Marcada(i, j)) {
-					if(imgBandera != null)
-						g.drawImage(imgBandera, i*dx+imgDx, j*dy+imgDy, dx-(dx/3), dy-(dy/3), this);
-					else {
-						g.setPaint(new GradientPaint(11, 10, new Color(230,100,110), 25, 25, new Color(230,100,110), true));
-						g.fillRect(i*dx, j*dy, dx, dy);
 					}
 				}
 			}
@@ -157,11 +172,12 @@ public class PanelCentral extends JPanel implements MouseListener, MouseMotionLi
 		PanelSuperior.UpdateIconStart(iconWiner,Variables.txtWinner);
 	}
 	
-	private void abrir(int x, int y, int op) {
+	public void abrir(int x, int y, int op) {
 		if(x < 0 || x >= Variables.ancho || y < 0 || y >= Variables.alto)
 			return;
-		if(JMinasMain.Ganador || JMinasMain.Perdedor)
+		if(JMinasMain.Ganador || JMinasMain.Perdedor) {
 			return;
+		}
 		if(!JMinasMain.isPlaying()){
 			JMinasMain.StartGame();
 			
@@ -304,5 +320,9 @@ public class PanelCentral extends JPanel implements MouseListener, MouseMotionLi
 			PanelSuperior.UpdateIconStart(iconNormal,Variables.txtNormal);
 		if(JMinasMain.Ganador)
 			PanelSuperior.UpdateIconStart(iconWiner,Variables.txtWinner);
+	}
+	
+	public int getContMinasMarcadas() {
+		return this.contMinasMarcadas;
 	}
 }
