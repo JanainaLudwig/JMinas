@@ -15,6 +15,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URL;
+import java.util.ResourceBundle;
 
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
@@ -35,8 +36,8 @@ public class JMinasMain extends JFrame implements ActionListener {
     public static boolean flagErrorImagenes = false;
     
     private JMenuBar mb;
-    private JMenu mOpciones, mMas, mNivel, mAjuda;
-    private JMenuItem moNuevo,moSalir,moEstadisticas,mAcerca,smn0,smn1,smn2,smn3, mRegras;
+    private JMenu mOpciones, mMas, mNivel, mAyuda, mIdioma;
+    private JMenuItem moNuevo,moSalir,moEstadisticas,mAcerca,smn0,smn1,smn2,smn3, mRegras, mEn, mPtBr;
     
     static PanelSuperior ps;
     static PanelCentral pc;
@@ -124,46 +125,58 @@ public class JMinasMain extends JFrame implements ActionListener {
         mb=new JMenuBar();
         setJMenuBar(mb);
         
-        mOpciones = new JMenu("Opciones");
+        mOpciones = new JMenu();
+        mOpciones.setText(Mensajes.getMessage("mOpciones"));
         mb.add(mOpciones);
-        moNuevo = new JMenuItem("Nuevo");
+        moNuevo = new JMenuItem(Mensajes.getMessage("moNuevo"));
         moNuevo.addActionListener(this);
         mOpciones.add(moNuevo);
         mOpciones.add(new JSeparator());
-        mNivel = new JMenu("Nivel");
+        mNivel = new JMenu(Mensajes.getMessage("mNivel"));
         {
-            smn0 = new JMenuItem("Nivel 0");
+            smn0 = new JMenuItem(Mensajes.getMessage("smn0"));
             smn0.addActionListener(this);
             mNivel.add(smn0);
-            smn1 = new JMenuItem("Principiante");
+            smn1 = new JMenuItem(Mensajes.getMessage("smn1"));
             smn1.addActionListener(this);
             mNivel.add(smn1);
-            smn2 = new JMenuItem("Avanzado");
+            smn2 = new JMenuItem(Mensajes.getMessage("smn2"));
             smn2.addActionListener(this);
             mNivel.add(smn2);
-            smn3 = new JMenuItem("Experto");
+            smn3 = new JMenuItem(Mensajes.getMessage("smn3"));
             smn3.addActionListener(this);
             mNivel.add(smn3);
         }
         mOpciones.add(mNivel);
-        moEstadisticas = new JMenuItem("Estadisticas");
-        mOpciones.add(moEstadisticas);
+        //moEstadisticas = new JMenuItem("Estadisticas");
+        //mOpciones.add(moEstadisticas);
         mOpciones.add(new JSeparator());
-        moSalir = new JMenuItem("Salir");
+        moSalir = new JMenuItem(Mensajes.getMessage("moSalir"));
         moSalir.addActionListener(this);
         mOpciones.add(moSalir);
         
-        mMas = new JMenu("Mas");
+        mMas = new JMenu(Mensajes.getMessage("mMas"));
         mb.add(mMas);
-        mAcerca = new JMenuItem("Acerca de");
+        mAcerca = new JMenuItem(Mensajes.getMessage("mAcerca"));
         mAcerca.addActionListener(this);
         mMas.add(mAcerca);
         
-        mAjuda = new JMenu("Ayuda");
-        mb.add(mAjuda);
-        mRegras = new JMenuItem("Operación");
+        mAyuda = new JMenu(Mensajes.getMessage("mAyuda"));
+        mb.add(mAyuda);
+        mRegras = new JMenuItem(Mensajes.getMessage("mRegras"));
         mRegras.addActionListener(this);
-        mAjuda.add(mRegras);
+        mAyuda.add(mRegras);
+        
+        mIdioma = new JMenu(Mensajes.getMessage("mIdioma"));
+        mb.add(mIdioma);
+        mEn = new JMenuItem(Mensajes.getMessage("mEn"));
+        mEn.addActionListener(this);
+        mPtBr = new JMenuItem(Mensajes.getMessage("mPtBr"));
+        mPtBr.addActionListener(this);
+        mIdioma.add(mEn);
+        mIdioma.add(mPtBr);
+        
+        
     }
     
     public static void StartGame() {
@@ -236,6 +249,12 @@ public class JMinasMain extends JFrame implements ActionListener {
             } catch (InterruptedException e1) {
                 e1.printStackTrace();
             }
+        }else if(e.getSource()==mPtBr) {
+        	Mensajes.Write(Mensajes.Caminho,"pt-br");
+        	System.exit(0);
+            }else if(e.getSource()==mEn) {
+            	Mensajes.Write(Mensajes.Caminho,"en");
+            	System.exit(0);
         }else if(e.getSource()==mAcerca)
             try {
                 Acerca();
@@ -308,7 +327,7 @@ public class JMinasMain extends JFrame implements ActionListener {
             }
         });
         frame.pack();
-        frame.setSize(700, 200);
+        frame.setSize(700, 220);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
         Thread t = new Thread(){
@@ -333,20 +352,21 @@ public class JMinasMain extends JFrame implements ActionListener {
                 new Color(0.3f,0.3f,0.3f,1f),
                 new Color(0.3f,0.3f,0.3f,1f),
                 new Color(0,0,0,0)};
-            g.fillRect(0, 0, 650, 200);
+            String teste = Mensajes.getMessage("teste");
+            g.fillRect(0, 0, 650, 220);
             g.setPaint(Color.WHITE);
-            g.drawString("-El objetivo \n"
-            		+ "del Campo Minado es revelar los cuadrados vacíos y con números, evitando a los que \n"
-            		+ "esconde bombas." + "\n", 20, 30);
-            g.drawString("-El número que aparece en el cuadrado indica el número total de bombas en el\n"
-            		+ "cuadrados que lo rodean" + "\n", 20, 60);
-            g.drawString("-A medida que revele los cuadrados, la pantalla presentará el resultado de su \n"
-            		+ "elección" + "\n", 20, 90);
-            g.drawString("-Has hecho clic en un espacio en blanco: todos los espacios en blanco a tu alrededor son \n"
-            		+ "revelado automáticamente" + "\n", 20, 120);
-            g.drawString("-Has hecho clic en un número: el número se revela" + "\n", 20, 150);
-            g.drawString("-Has hecho clic en una bomba: se revelan todas las posiciones y pierdes el juego" + "\n", 20, 180);
-            g.drawString("-Ganas el juego cuando revelas todas las posiciones que no son bombas." + "\n", 20, 210);
+            g.drawString(Mensajes.getMessage("p1") + " \n"
+            		+ Mensajes.getMessage("p2") + " \n"
+            		+ Mensajes.getMessage("p3") + "\n", 20, 30);
+            g.drawString(Mensajes.getMessage("p4") + " \n"
+            		+ Mensajes.getMessage("p5") + "\n", 20, 60);
+            g.drawString(Mensajes.getMessage("p6") + "\n"
+            		+ Mensajes.getMessage("p7") + "\n", 20, 90);
+            g.drawString(Mensajes.getMessage("p8") + " \n"
+            		+ Mensajes.getMessage("p9") + "\n", 20, 120);
+            g.drawString(Mensajes.getMessage("p10") + "\n", 20, 150);
+            g.drawString(Mensajes.getMessage("p11") + "\n", 20, 180);
+            g.drawString(Mensajes.getMessage("p12") + "\n", 20, 210);
         }
     }
     
